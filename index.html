@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GryoStudio</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .topbar {
+            background: #1e1e1e;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+        .brand { font-weight: bold; letter-spacing: 1px; color: #4ade80; }
+        button {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+        button:hover { background: #444; }
+        .run-btn { background: #22c55e; color: #000; font-weight: bold; }
+        .run-btn:hover { background: #16a34a; }
+        
+        .workspace {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 220px;
+            background: #181818;
+            border-right: 1px solid #333;
+            padding: 15px;
+            display: none; /* Hidden in Pad Mode */
+        }
+        .editor-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        textarea {
+            flex: 1;
+            background: #121212;
+            color: #ffffff;
+            border: none;
+            padding: 20px;
+            font-family: 'Consolas', monospace;
+            font-size: 16px;
+            resize: none;
+            outline: none;
+        }
+        .terminal {
+            height: 150px;
+            background: #0d0d0d;
+            border-top: 1px solid #333;
+            padding: 15px;
+            font-family: 'Consolas', monospace;
+            color: #4ade80;
+            display: none; /* Hidden in Pad Mode */
+            overflow-y: auto;
+        }
+
+        /* Studio Mode Active Classes */
+        .studio-active .sidebar,
+        .studio-active .terminal {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <div class="brand">GRYOSTUDIO <span id="mode-label" style="color:#888; font-size:12px;">[PAD MODE]</span></div>
+        <div>
+            <button onclick="toggleMode()">Switch to Studio Mode</button>
+            <button class="run-btn" onclick="runGryoCode()">▶ Run</button>
+        </div>
+    </div>
+
+    <div class="workspace" id="workspace">
+        <div class="sidebar">
+            <h4 style="margin-top:0; color:#888;">FILES</h4>
+            <div>📄 main.gryo</div>
+            <div>📄 helpers.gryo</div>
+        </div>
+        <div class="editor-area">
+            <textarea id="code" placeholder="Write your GryoCode here...&#10;Try: say &quot;Hello Gryonite!&quot;">say "Hello Gryonite!"</textarea>
+            <div class="terminal" id="terminal">Output will appear here...</div>
+        </div>
+    </div>
+
+    <script>
+        let isStudio = false;
+
+        function toggleMode() {
+            isStudio = !isStudio;
+            const workspace = document.getElementById('workspace');
+            const label = document.getElementById('mode-label');
+            const btn = event.target;
+
+            if (isStudio) {
+                workspace.classList.add('studio-active');
+                label.textContent = '[STUDIO MODE]';
+                btn.textContent = 'Switch to Pad Mode';
+            } else {
+                workspace.classList.remove('studio-active');
+                label.textContent = '[PAD MODE]';
+                btn.textContent = 'Switch to Studio Mode';
+            }
+        }
+
+        function runGryoCode() {
+            // Automatically show terminal when running code
+            document.getElementById('terminal').style.display = 'block';
+            const code = document.getElementById('code').value;
+            const terminal = document.getElementById('terminal');
+            terminal.innerHTML = '';
+
+            // Simple sample interpreter for "say"
+            const lines = code.split('\n');
+            lines.forEach(line => {
+                line = line.trim();
+                if (line.startsWith('say ')) {
+                    let message = line.slice(4).replace(/^["']|["']$/g, '');
+                    terminal.innerHTML += `<div>> ${message}</div>`;
+                } else if (line !== '') {
+                    terminal.innerHTML += `<div style="color:#f87171;">> Unknown command: ${line}</div>`;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
