@@ -1,10 +1,6 @@
-
-
-<img width="550" height="550" alt="GryoniteLogo" src="GryoCodeIcon"/>
+<img width="550" height="550" alt="GryoniteLogo" src="GryoCodeIcon.png"/>
 
 # GryoCode
-
-</div>
 
 The custom coding language for Gryonite
 
