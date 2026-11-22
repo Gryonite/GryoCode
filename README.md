@@ -1,6 +1,6 @@
-<div align = "center"
 
-<img width="550" height="550" alt="GryoCodeLogo" src="GryoCodeIcon.png"/>
+
+<img width="550" height="550" alt="GryoniteLogo" src="GryoCodeIcon"/>
 
 # GryoCode
 
