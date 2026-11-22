@@ -1,4 +1,4 @@
-<img width="550" height="550" alt="GryoniteLogo" src="GryoCodeIcon.png"/>
+<img width="350" height="256" alt="GryoniteLogo" src="GryoCodeIcon.png"/>
 
 # GryoCode
 
